@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "pinia": "^2.2.4",
+    "tp01": "file:",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
