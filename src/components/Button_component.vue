@@ -41,7 +41,7 @@ export default {
 }
 
 .custom-button:hover {
-  filter: brightness(90%);
+  filter: brightness(80%);
 }
 
 .custom-button::after {

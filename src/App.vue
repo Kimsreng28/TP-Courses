@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     shopNow(promo) {
-      alert("let's shop now:" + " " + promo.title);
+      alert("let's shop:" + " " + promo.title);
     },
   },
 };
