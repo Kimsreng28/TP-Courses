@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="custom-button"
-    :style="{ backgroundColor: backgroundColor }"
-    @click="shopNow(promotion)"
-  >
+  <button class="custom-button" :style="{ backgroundColor: backgroundColor }">
     <slot></slot>
   </button>
 </template>
@@ -15,11 +11,6 @@ export default {
     backgroundColor: {
       type: String,
       default: "#2dd06e",
-    },
-  },
-  methods: {
-    shopNow(promotion) {
-      this.$emit("shopNow", promotion);
     },
   },
 };
@@ -42,6 +33,8 @@ export default {
 
 .custom-button:hover {
   filter: brightness(80%);
+  transition: all 0.3s ease;
+  transform: scale(1.03);
 }
 
 .custom-button::after {

@@ -1,19 +1,19 @@
 <template>
-  <div class="promotion" :style="{ backgroundColor: backgroundColor }">
+  <div class="promotion" :style="{ backgroundColor: color }">
     <div class="promotion-text">
       <div class="text">
         <h2>{{ title }}</h2>
       </div>
 
       <div class="promotion-button">
-        <CustomButton :backgroundColor="buttonBackgroundColor">{{
+        <CustomButton @click="show" :backgroundColor="buttonColor">{{
           buttonText
         }}</CustomButton>
       </div>
     </div>
 
     <div class="promotion-image">
-      <img :src="imageSrc" alt="" />
+      <img :src="image" alt="" />
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
     CustomButton,
   },
   props: {
+    id: Number,
     title: {
       type: String,
       default: "Everyday Fresh & Clean with Our Products",
@@ -35,17 +36,22 @@ export default {
       type: String,
       default: "Shop Now",
     },
-    imageSrc: {
+    image: {
       type: String,
       required: true,
     },
-    backgroundColor: {
+    color: {
       type: String,
       default: "#f8f4eb",
     },
-    buttonBackgroundColor: {
+    buttonColor: {
       type: String,
       default: "#2dd06e",
+    },
+  },
+  methods: {
+    show() {
+      alert(`Let's shop: ${this.title}`);
     },
   },
 };
