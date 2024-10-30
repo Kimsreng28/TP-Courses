@@ -2,7 +2,7 @@
   <button
     class="custom-button"
     :style="{ backgroundColor: backgroundColor }"
-    @click="handleClick"
+    @click="shopNow(promotion)"
   >
     <slot></slot>
   </button>
@@ -18,9 +18,8 @@ export default {
     },
   },
   methods: {
-    handleClick() {
-      // You can emit events to the parent or handle internal logic here.
-      this.$emit("click");
+    shopNow(promotion) {
+      this.$emit("shopNow", promotion);
     },
   },
 };

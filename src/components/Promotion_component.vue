@@ -6,11 +6,9 @@
       </div>
 
       <div class="promotion-button">
-        <CustomButton
-          :backgroundColor="buttonBackgroundColor"
-          @click="onButtonClick"
-          >{{ buttonText }}</CustomButton
-        >
+        <CustomButton :backgroundColor="buttonBackgroundColor">{{
+          buttonText
+        }}</CustomButton>
       </div>
     </div>
 
@@ -48,11 +46,6 @@ export default {
     buttonBackgroundColor: {
       type: String,
       default: "#2dd06e",
-    },
-  },
-  methods: {
-    onButtonClick() {
-      console.log("Button clicked!");
     },
   },
 };

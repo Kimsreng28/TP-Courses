@@ -20,6 +20,7 @@
         :imageSrc="promo.imageSrc"
         :backgroundColor="promo.backgroundColor"
         :buttonBackgroundColor="promo.buttonBackgroundColor"
+        @click="shopNow(promo)"
       />
     </div>
   </div>
@@ -135,6 +136,11 @@ export default {
       ],
     };
   },
+  methods: {
+    shopNow(promo) {
+      alert("let's shop now:" + " " + promo.title);
+    },
+  },
 };
 </script>
 
@@ -144,6 +150,7 @@ export default {
   max-width: 1600px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-left: -10%;
 }
 
@@ -154,6 +161,7 @@ export default {
   justify-content: flex-start;
   gap: 0.5%;
   margin: 1%;
+  width: 1480px;
 }
 
 /* Promotions Section */
@@ -162,5 +170,6 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   margin: 1%;
+  width: 1480px;
 }
 </style>
