@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .category-card {
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   width: 100%;
   max-width: 110px; /* 137px */
   height: 150px; /* 177px */
@@ -51,6 +51,7 @@ export default {
 
 .category-card:hover {
   filter: brightness(90%);
+  transform: scale(1.05);
 }
 
 .category-image img {
