@@ -2,9 +2,9 @@
   <div class="add">
     <div class="categories">
       <CategoryCard
-        v-for="(category, index) in categories"
+        v-for="(category, index) in productStore.categories"
         :id="category.id"
-        :key="index"
+        :key="category.id"
         :name="category.name"
         :productCount="category.productCount"
         :image="category.image"
@@ -14,9 +14,9 @@
 
     <div class="promotion">
       <Promotion
-        v-for="(promo, index) in promotions"
+        v-for="(promo, index) in productStore.promotions"
         :id="promo.id"
-        :key="index"
+        :key="promo.id"
         :title="promo.title"
         :buttonText="promo.buttonText"
         :image="promo.image"
@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import { onMounted } from "vue";
+import { useProductStore } from "@/stores/productStore";
 import CategoryCard from "./components/Category_component.vue";
 import Promotion from "./components/Promotion_component.vue";
 
@@ -38,32 +39,39 @@ export default {
     CategoryCard,
     Promotion,
   },
-  data() {
-    return {
-      categories: [],
-      promotions: [],
-    };
-  },
-  created() {
-    // Fetch categories from API
-    axios
-      .get("http://localhost:3000/api/categories")
-      .then((response) => {
-        this.categories = response.data;
-      })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-      });
+  setup() {
+    const productStore = useProductStore();
 
-    // Fetch promotions from API
-    axios
-      .get("http://localhost:3000/api/promotions")
-      .then((response) => {
-        this.promotions = response.data;
-      })
-      .catch((error) => {
-        console.error("Error fetching promotions:", error);
-      });
+    onMounted(async () => {
+      await productStore.fetchCategories();
+      await productStore.fetchPromotions();
+      await productStore.fetchProducts();
+      await productStore.fetchGroups();
+
+      const nameGroup = "fruits";
+      const nameCategory = "vegetables";
+
+      console.log(
+        `Categories in group "${nameGroup}":`,
+        productStore.getCategoriesByGroup(nameGroup)
+      );
+      console.log(
+        `Products in group "${nameGroup}":`,
+        productStore.getProductsByGroup(nameGroup)
+      );
+      console.log(
+        `Products in category "${nameCategory}":`,
+        productStore.getProductsByCategory(nameCategory)
+      );
+      console.log(
+        "Popular products sorted by rating:",
+        productStore.getPopularProducts
+      );
+    });
+
+    return {
+      productStore,
+    };
   },
 };
 </script>

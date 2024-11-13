@@ -16,6 +16,7 @@ export default {
   name: "CategoryCard",
   props: {
     id: Number,
+    group: String,
     name: {
       type: String,
       default: "Cake & Milk",
