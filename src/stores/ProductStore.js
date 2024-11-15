@@ -21,7 +21,7 @@ export const useProductStore = defineStore("product", {
     },
 
     getPopularProducts: (state) => {
-      return state.products.sort((a, b) => b.rating - a.rating);
+      return state.products.sort((a, b) => b.rating - a.rating).slice(0, 5);
     },
   },
   actions: {
@@ -43,6 +43,7 @@ export const useProductStore = defineStore("product", {
     async fetchGroups() {
       const response = await fetch("http://localhost:3000/api/groups");
       const data = await response.json();
+      console.log("Fetched groups:", data);
       this.groups = data;
     },
   },
