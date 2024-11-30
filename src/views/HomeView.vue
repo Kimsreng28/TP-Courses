@@ -1,5 +1,16 @@
 <template>
   <div class="add">
+    <div class="navBar">
+      <NavBarView />
+    </div>
+
+    <div class="menuItem">
+      <MenuItemView />
+    </div>
+
+    <div class="showCase">
+      <ShowCase_component />
+    </div>
     <div class="menuCom">
       <MenuComponent
         :title="categoryTitle"
@@ -57,12 +68,16 @@
 </template>
 
 <script>
+import ShowCase_component from "@/components/ShowCase_component.vue";
 import { useProductStore } from "@/stores/ProductStore";
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import CategoryCard from "../components/Category_component.vue";
 import MenuComponent from "../components/Menu_component.vue";
 import ProductComponent from "../components/Product_component.vue";
 import Promotion from "../components/Promotion_component.vue";
+import MenuItemView from "./MenuItemView.vue";
+import NavBarView from "./NavBarView.vue";
 
 export default {
   name: "HomeView",
@@ -71,9 +86,13 @@ export default {
     Promotion,
     MenuComponent,
     ProductComponent,
+    NavBarView,
+    MenuItemView,
+    ShowCase_component,
   },
   setup() {
     const productStore = useProductStore();
+    const router = useRouter();
 
     const selectedGroupCategory = ref("All");
     const selectedGroupProduct = ref("All");
@@ -117,6 +136,7 @@ export default {
       selectedCategoryId.value = categoryId;
       console.log(`Selected Category ID: ${categoryId}`);
       console.log("Filtered Products by Category:", filteredProducts.value);
+      router.push({ name: "category", params: { categoryId } });
     };
 
     onMounted(async () => {

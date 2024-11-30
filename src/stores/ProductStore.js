@@ -23,6 +23,22 @@ export const useProductStore = defineStore("product", {
     getPopularProducts: (state) => {
       return state.products.sort((a, b) => b.rating - a.rating).slice(0, 5);
     },
+
+    getProductsById: (state) => (id) => {
+      // Convert both the product ID and the route ID to string for comparison
+      const product = state.products.find(
+        (product) => product.id.toString() === id.toString()
+      );
+      console.log("Product found by ID:", product); // Log the found product
+      return product;
+    },
+    getCategoryById: (state) => (id) => {
+      const category = state.categories.find(
+        (category) => category.id.toString() === id.toString()
+      );
+      console.log("Category found by ID:", category); // Log the found category
+      return category;
+    },
   },
   actions: {
     async fetchProducts() {

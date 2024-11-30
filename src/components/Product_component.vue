@@ -1,12 +1,17 @@
 <template>
   <div class="product-list">
-    <div class="product" v-for="product in products" :key="product.id">
+    <div
+      class="product"
+      v-for="product in products"
+      :key="product.id"
+      @click="goToProductDetail(product.id)"
+    >
       <!-- Product Tag -->
       <div class="product-tag"></div>
 
       <!-- Product Image -->
       <div class="img">
-        <img :src="product.image" alt="" class="product-image" />
+        <img :src="getFirstImage(product.image)" alt="" class="product-image" />
       </div>
 
       <!-- Product Info -->
@@ -58,8 +63,9 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router";
+import { useProductStore } from "../stores/ProductStore.js";
 import MyButton from "./MyButton.vue";
-
 export default {
   name: "ProductComponent",
   components: {
@@ -70,6 +76,27 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  setup() {
+    const router = useRouter(); // Correct usage in Composition API
+
+    const goToProductDetail = (productId) => {
+      router.push(`/products/${productId}`); // Correct usage of router.push
+    };
+
+    const getFirstImage = (image) => {
+      // Split the image string by comma and return the first one
+      return image ? image.split(",")[0].trim() : "";
+    };
+
+    return {
+      goToProductDetail,
+      getFirstImage,
+    };
+  },
+  created() {
+    const productStore = useProductStore();
+    productStore.fetchProducts();
   },
 };
 </script>
