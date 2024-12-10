@@ -7,7 +7,9 @@
       @click="goToProductDetail(product.id)"
     >
       <!-- Product Tag -->
-      <div class="product-tag"></div>
+      <div class="product-tag">
+        <p>{{ product.promotionAsPercentage }}%</p>
+      </div>
 
       <!-- Product Image -->
       <div class="img">
@@ -135,6 +137,7 @@ export default {
   top: 20px;
   left: -0.3%;
   color: white;
+  background-color: #0bba39;
   font-size: 12px;
   padding: 10px, 15px, 10px, 15px;
   border-top-right-radius: 30px;
