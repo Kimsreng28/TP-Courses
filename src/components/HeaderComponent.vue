@@ -4,9 +4,21 @@
       <p>{{ title }}</p>
     </div>
     <div class="pages">
-      <p><router-link to="page1"> Page 1</router-link></p>
-      <p><router-link to="page2"> Page 2</router-link></p>
-      <p><router-link to="page3"> Page 3</router-link></p>
+      <p>
+        <router-link to="/page1" class="link" active-class="active-link"
+          >Page 1</router-link
+        >
+      </p>
+      <p>
+        <router-link to="/page2" class="link" active-class="active-link"
+          >Page 2</router-link
+        >
+      </p>
+      <p>
+        <router-link to="/page3" class="link" active-class="active-link"
+          >Page 3</router-link
+        >
+      </p>
     </div>
   </div>
 </template>
@@ -15,7 +27,10 @@
 export default {
   name: "HeaderComponent",
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: "Header",
+    },
   },
 };
 </script>
@@ -26,33 +41,39 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
   background-color: #aea8a8;
-  padding: 2%;
+  padding: 15px;
   border-radius: 5px;
-  margin: 10px;
+  margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.pages {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: row;
-  gap: 10px;
-  width: 20%;
-  cursor: pointer;
-}
+
 .title p {
   font-size: 24px;
   font-weight: bold;
   color: #fff;
+  margin: 0;
 }
-.pages p {
-  font-size: 18px;
+
+.pages {
+  display: flex;
+  gap: 15px;
+}
+
+.link {
+  text-decoration: none;
   color: #fff;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
-.pages p:hover {
-  color: #000;
-  cursor: pointer;
+
+.link:hover {
+  background-color: #4c4040;
+}
+
+.active-link {
+  background-color: #d2cbcb;
+  color: #fb0000;
 }
 </style>
