@@ -6,7 +6,9 @@
     <div class="sections">
       <p v-for="section in sections" :key="section.name">
         <router-link
-          :to="`/${currentPage}/${section.path}`"
+          :to="{
+            path: `/${currentPage}/${section.path}`,
+          }"
           class="link"
           active-class="active-link"
         >

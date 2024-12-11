@@ -10,35 +10,59 @@ const router = createRouter({
       children: [
         {
           path: "page1",
+          name: "page1",
           component: () => import("../views/PageOne.vue"),
-          props: { pageName: "page1" },
+          props: (route) => ({
+            pageName: "page1",
+            message: route.query.message,
+          }),
           children: [
             {
               path: "section1",
               component: () => import("../views/Section.vue"),
-              props: () => ({ sectionName: "Section 1", pageName: "page1" }), // Dynamic props
+              props: (route) => ({
+                sectionName: "Section 1",
+                pageName: "page1",
+                message: route.query.message,
+              }), // Dynamic props
             },
             {
               path: "section2",
               component: () => import("../views/Section.vue"),
-              props: () => ({ sectionName: "Section 2", pageName: "page1" }),
+              props: (route) => ({
+                sectionName: "Section 2",
+                pageName: "page1",
+                message: route.query.message,
+              }),
             },
             {
               path: "section3",
               component: () => import("../views/Section.vue"),
-              props: () => ({ sectionName: "Section 3", pageName: "page1" }),
+              props: (route) => ({
+                sectionName: "Section 3",
+                pageName: "page1",
+                message: route.query.message,
+              }),
             },
             {
               path: "section4",
               component: () => import("../views/Section.vue"),
-              props: () => ({ sectionName: "Section 4", pageName: "page1" }),
+              props: (route) => ({
+                sectionName: "Section 4",
+                pageName: "page1",
+                message: route.query.message,
+              }),
             },
           ],
         },
         {
           path: "page2",
-          component: () => import("../views/PageOne.vue"),
-          props: { pageName: "page2" },
+          name: "page2",
+          component: () => import("../views/PageTwo.vue"),
+          props: (route) => ({
+            pageName: "page2",
+            message: route.query.message,
+          }),
           children: [
             {
               path: "section1",
@@ -65,7 +89,10 @@ const router = createRouter({
         {
           path: "page3",
           component: () => import("../views/PageOne.vue"),
-          props: { pageName: "page3" },
+          props: (route) => ({
+            pageName: "page3",
+            message: route.query.message,
+          }),
           children: [
             {
               path: "section1",

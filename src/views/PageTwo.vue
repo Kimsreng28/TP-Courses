@@ -1,16 +1,14 @@
 <template>
   <div class="container">
     <p>Welcome to {{ pageName }}</p>
-
     <div class="message">
       <label for="message">Message:</label>
       <input v-model="message" type="text" />
-      <button @click="sendMessage">Send to Page2</button>
+      <button @click="sendMessage">Send to Page1</button>
     </div>
-
-    <!-- Display the message clearly -->
+    <!-- Display the message passed from Page1 -->
     <p v-if="message" class="message-display">
-      Message from {{ pageName }}: <strong>{{ message }}</strong>
+      Message from Page1: <strong>{{ message }}</strong>
     </p>
 
     <hr />
@@ -20,10 +18,10 @@
 
 <script>
 export default {
-  name: "PageOne",
+  name: "PageTwo",
   data() {
     return {
-      message: this.$route.query.message || "",
+      message: this.$route.query.message || "", // Get message from query params
     };
   },
   props: {
@@ -34,8 +32,8 @@ export default {
   },
   methods: {
     sendMessage() {
-      // Navigate to Page2 with the message in the query parameters
-      this.$router.push({ name: "page2", query: { message: this.message } });
+      // Navigate to Page1 with the message in the query parameters
+      this.$router.push({ name: "page1", query: { message: this.message } });
     },
   },
 };
@@ -45,7 +43,7 @@ export default {
 .container {
   width: 1440px;
   display: flex;
-  flex-direction: column; /* Added to stack elements vertically */
+  flex-direction: column; /* Stack elements vertically */
 }
 
 p {
@@ -58,23 +56,9 @@ p {
   padding: 20px;
 }
 
-label {
-  font-size: 16px;
-}
-
-input {
-  width: 200px;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
 .message-display {
-  font-size: 20px; /* Larger font for the displayed message */
-  font-weight: normal; /* Ensure the message is not bold */
+  font-size: 20px;
+  font-weight: normal;
   margin-top: 20px;
-}
-
-button {
-  margin-top: 10px;
 }
 </style>
