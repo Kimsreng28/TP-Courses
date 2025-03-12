@@ -16,7 +16,7 @@ class RatingSeeder extends Seeder
         Rating::create([
             'user_id' => 1,
             'article_id' => 1,
-            'rating' => 5,
+            'ratings' => 5,
         ]);
     }
 }

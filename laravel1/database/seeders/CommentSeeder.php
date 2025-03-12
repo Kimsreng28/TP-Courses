@@ -15,8 +15,8 @@ class CommentSeeder extends Seeder
     {
         Comment::create([
             'user_id' => 1,
-            'post_id' => 1,
-            'comment' => 'First comment'
+            'article_id' => 1,
+            'content' => 'First comment'
         ]);
     }
 }

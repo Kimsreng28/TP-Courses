@@ -24,3 +24,8 @@ Route::controller(ProductController::class)->prefix('products')->group(function(
     Route::patch("/{productId}", 'updateProduct');
     Route::delete("/{productId}", 'deleteProduct');
 });
+
+Route::controller(ArticleController::class)->prefix('articles')->group(function(){
+    Route::get('/', 'getArticles');
+
+});

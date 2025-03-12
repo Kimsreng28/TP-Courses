@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rating extends Model
 {
-    protected $fillable = ['rating', 'article_id', 'user_id'];
+    protected $fillable = ['ratings', 'article_id', 'user_id'];
 
     public function article(){
         return $this->belongsTo(Article::class);
