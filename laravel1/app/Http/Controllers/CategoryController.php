@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function getCategories()
     {
         $categories = Category::all();
-        return response()->json($categories);
+        return response()->json(['message' => 'Get all categories', 'categories' => $categories], 200);
     }
 
     /**
@@ -21,10 +21,16 @@ class CategoryController extends Controller
      */
     public function createCategory(Request $request)
     {
-        $category = Category::create([
-            'name' => $request->name,
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255'
         ]);
-        return response()->json(['message' => 'Creating a new category', 'category' => $category]);
+
+        $category = Category::create([
+            'name' => $validatedData['name'],
+        ]);
+
+
+        return response()->json(['message' => 'Creating a new category', 'category' => $category], 201);
     }
 
     /**
