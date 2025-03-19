@@ -18,7 +18,7 @@ class CategoryTest extends TestCase
         // test api category
         $response = $this->get('/api/categories');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)->assertJsonFragment(['message' => 'Get all categories']);
     }
 
     // test create category successfully
