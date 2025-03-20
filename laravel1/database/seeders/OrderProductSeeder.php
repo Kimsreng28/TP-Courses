@@ -11,7 +11,7 @@ class OrderProductSeeder extends Seeder
     {
         OrderProduct::create([
             'order_id' => 1,
-            'product_id' => 1,
+            'product_id' => 2,
             'price' => 99.99,
             'quantity' => 2,
         ]);

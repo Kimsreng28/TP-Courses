@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
             'pricing' => 99.99,
             'description' => 'High-quality wireless earbuds with noise cancellation.',
             'images' => json_encode(['earbuds1.jpg', 'earbuds2.jpg']),
-            'category_id' => 1,
+            'category_id' => 3,
         ]);
     }
 }

@@ -10,7 +10,7 @@ class OrderSeeder extends Seeder
     public function run()
     {
         Order::create([
-            'customer_id' => 1,
+            'customer_id' => 7,
             'order_date' => now(),
             'total_price' => 199.98,
         ]);

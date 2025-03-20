@@ -11,10 +11,10 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         Customer::create([
-            'name' => 'John Doe',
-            'email' => 'johndoe@gmail.com',
-            'address' => '123 Main Street',
-            'phone' => '1234567890',
+            'name' => ' Doe',
+            'email' => 'doe@gmail.com',
+            'address' => ' Main Street',
+            'phone' => '12367890',
         ]);
     }
 }

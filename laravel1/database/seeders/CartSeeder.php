@@ -10,8 +10,8 @@ class CartSeeder extends Seeder
     public function run()
     {
         Cart::create([
-            'customer_id' => 1,
-            'product_id' => 1,
+            'customer_id' => 7,
+            'product_id' => 2,
             'quantity' => 2,
         ]);
     }

@@ -11,7 +11,7 @@ class PaymentSeeder extends Seeder
     {
         Payment::create([
             'order_id' => 1,
-            'customer_id' => 1,
+            'customer_id' => 7,
 
             'payment_method' => 'Credit Card',
             'amount' => 199.98,
