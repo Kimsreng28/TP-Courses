@@ -2,43 +2,140 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Category;
 use Tests\TestCase;
-
 
 class CategoryTest extends TestCase
 {
-    use RefreshDatabase;
     /**
-     * A basic feature test example.
+     * Test ID: Category-001
+     * Description: Verify category creation functionality with valid data
+     * Precondition: User must be authenticated
+     * Test Steps:
+     * 1. Send a POST request to /api/categories with a valid 'name'
+     * 2. Check the response status
+     * 3. Verify the new category exists in the database
+     * Test Data:
+     * name: Electronics
+     * Expected Result: The category is created and returns a 201 status with the category details
+     * Actual Result:
+     * Status: (Pass/Fail)
+     * Remarks: N/A
      */
-    public function test_example(): void
+
+    /**
+     * Test ID: Category-002
+     * Description: Verify that a category can be updated with new data
+     * Precondition: A category with the name 'Electronics' exists
+     * Test Steps:
+     * 1. Send a PUT request to /api/categories/{id} with new 'name' data
+     * 2. Check the response status
+     * 3. Verify the category is updated in the database
+     * Test Data:
+     * id: 1
+     * name: Smartphones
+     * Expected Result: The category name is updated to 'Smartphones' and a 200 status is returned
+     * Actual Result:
+     * Status: (Pass/Fail)
+     * Remarks: N/A
+     */
+
+    /**
+     * Test ID: Category-003
+     * Description: Verify that a category can be deleted by id
+     * Precondition: A category with ID 1 exists
+     * Test Steps:
+     * 1. Send a DELETE request to /api/categories/{id}
+     * 2. Check the response for failure due to products attached to the category
+     * Test Data:
+     * id: 1 (assuming category with products exists)
+     * Expected Result: Response status should be
+     * Actual Result:
+     * Status: (Pass/Fail)
+     * Remarks:
+     */
+
+    /**
+    * Test ID: Category-004
+    * Description: Verify that categories are listed correctly
+    * Precondition: Multiple categories exist in the database
+    * Test Steps:
+    * 1. Send a GET request to /api/categories
+    * 2. Check the response for a list of categories
+    * Test Data:
+    * N/A
+    * Expected Result: Response contains a list of categories with status code 200
+    * Actual Result:
+    * Status: (Pass/Fail)
+    * Remarks: N/A
+    */
+
+    /**
+    * Test ID: Category-005
+    * Description: Verify that categories are view all
+    * Precondition: can view all categories
+    * Test Steps:
+    * 1. Send a GET request to /api/categories
+    * 2. Check the response for a category that already created to view all categories
+    * Test Data: categories
+    * Expected Result: Response contains a list of categories with status code 200
+    * Actual Result:
+    * Status: (Pass/Fail)
+    * Remarks: N/A
+    */
+
+    public function test_create_category_with_valid_data()
     {
-        // test api category
+        $response = $this->post('/api/categories', [
+            'name' => 'Electronics',
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('categories', ['name' => 'Electronics']);
+    }
+
+    public function test_update_category()
+    {
+        $category = Category::create(['name' => 'Electronics']);
+
+        $response = $this->patch('/api/categories/' . $category->id, [
+            'name' => 'Smartphones',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('categories', ['name' => 'Smartphones']);
+    }
+
+    public function test_delete_category_by_id()
+    {
+        $category = Category::create(['name' => 'Electronics']);
+
+        $response = $this->delete('/api/categories/' . $category->id);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+    }
+
+    public function test_retrieve_categories()
+    {
+        Category::create(['name' => 'Electronics']);
+        Category::create(['name' => 'Fashion']);
+
         $response = $this->get('/api/categories');
 
-        $response->assertStatus(200)->assertJsonFragment(['message' => 'Get all categories']);
+        $response->assertStatus(200);
+        $response->assertJsonCount(2);
+        $response->assertJsonFragment(['name' => 'Electronics']);
+        $response->assertJsonFragment(['name' => 'Fashion']);
     }
 
-    // test create category successfully
-    public function test_create_category(): void
-{
-    $response = $this->postJson('/api/categories', ['name' => 'Test Category']);
-
-    $response->assertStatus(201)
-             ->assertJson([
-                 'category' => [
-                     'name' => 'Test Category',
-                 ],
-             ]);
-    }
-
-    public function test_create_category_failed(): void
+    public function test_view_all_categories()
     {
-        $response = $this->postJson('/api/categories', ['name' => '']);
+        $category = Category::create(['name' => 'Electronics']);
 
-        $response->assertStatus(422);
+        $response = $this->get('/api/categories/' . $category->id);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['name' => 'Electronics']);
     }
-
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->timestamp('payment_date')->nullable();
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->bigInteger('customer_id')->unsigned();
             $table->decimal('amount', 10, 2);
