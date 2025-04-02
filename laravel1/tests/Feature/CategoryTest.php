@@ -86,8 +86,10 @@ class CategoryTest extends TestCase
 
     public function test_create_category_with_valid_data()
     {
+        $uniqueName = 'Electronics-' . time();
+
         $response = $this->post('/api/categories', [
-            'name' => 'Electronics',
+            'name' => $uniqueName,
         ]);
 
         $response->assertStatus(201);
@@ -96,14 +98,16 @@ class CategoryTest extends TestCase
 
     public function test_update_category()
     {
-        $category = Category::create(['name' => 'Electronics']);
+        $category = Category::create(['name' => 'Electronics-' . time()]);
+
+        $uniqueUpdatedName = 'Smartphones-' . time();
 
         $response = $this->patch('/api/categories/' . $category->id, [
-            'name' => 'Smartphones',
+            'name' => $uniqueUpdatedName,
         ]);
 
         $response->assertStatus(200);
-        $this->assertDatabaseHas('categories', ['name' => 'Smartphones']);
+        $this->assertDatabaseHas('categories', ['name' => $uniqueUpdatedName]);
     }
 
     public function test_delete_category_by_id()
