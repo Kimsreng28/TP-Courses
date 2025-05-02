@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UploadController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +24,15 @@ Route::controller(ProductController::class)->prefix('products')->group(function(
     Route::patch("/{productId}", 'updateProduct');
     Route::delete("/{productId}", 'deleteProduct');
 });
+
+Route::get('/upload_file', function () {
+    return view('upload_file');
+   });
+
+// Local upload and retrieval
+Route::post('/upload_local', [UploadController::class, 'uploadToLocal']);
+Route::get('/uploads/{filename}', [UploadController::class, 'getFromLocal']);
+
+// MinIO upload and retrieval
+Route::post('/upload_minio', [UploadController::class, 'uploadToMinio']);
+Route::get('/uploads/minio/{filename}', [UploadController::class, 'getFromMinio']);
