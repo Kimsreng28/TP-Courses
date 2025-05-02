@@ -28,11 +28,4 @@ Route::controller(ProductController::class)->prefix('products')->group(function(
 Route::get('/upload_file', function () {
     return view('upload_file');
    });
-
-// Local upload and retrieval
-Route::post('/upload_local', [UploadController::class, 'uploadToLocal']);
-Route::get('/uploads/{filename}', [UploadController::class, 'getFromLocal']);
-
-// MinIO upload and retrieval
-Route::post('/upload_minio', [UploadController::class, 'uploadToMinio']);
-Route::get('/uploads/minio/{filename}', [UploadController::class, 'getFromMinio']);
+Route::post('/upload', [UploadController::class, 'upload'])->name('upload');
