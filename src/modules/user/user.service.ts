@@ -16,11 +16,18 @@ export class UserService {
   }
 
   findAll() {
-    return this.usersRepo.find({ relations: ['tasks'] });
+    return this.usersRepo.find({
+      select: ['id', 'username', 'email', 'password'],
+      relations: ['tasks'],
+    });
   }
 
   findOne(id: number) {
-    return this.usersRepo.findOne({ where: { id }, relations: ['tasks'] });
+    return this.usersRepo.findOne({
+      where: { id },
+      select: ['id', 'username', 'email', 'password'],
+      relations: ['tasks'],
+    });
   }
 
   async update(id: number, updateData: Partial<User>) {
