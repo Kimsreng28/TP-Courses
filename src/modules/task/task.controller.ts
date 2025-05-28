@@ -7,7 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { Task } from './entity/task.entity';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
 
 @Controller('tasks')
@@ -15,7 +16,7 @@ export class TasksController {
   constructor(private readonly taskService: TaskService) {}
 
   @Post('create')
-  create(@Body() taskData: Partial<Task>) {
+  async create(@Body() taskData: CreateTaskDto) {
     return this.taskService.create(taskData);
   }
 
@@ -30,7 +31,7 @@ export class TasksController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateData: Partial<Task>) {
+  update(@Param('id') id: string, @Body() updateData: UpdateTaskDto) {
     return this.taskService.update(+id, updateData);
   }
 
