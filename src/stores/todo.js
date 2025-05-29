@@ -5,7 +5,8 @@ export const useTodoStore = defineStore("todo", {
     todos: [],
   }),
   getters: {
-    countTodos: (state) => state.todos.length,
+    countTodos: (state) =>
+      state.todos.filter((todo) => todo.completedAt === null).length,
   },
   actions: {
     async fetchTodos() {
@@ -13,6 +14,7 @@ export const useTodoStore = defineStore("todo", {
         const res = await fetch("http://localhost:3100/tasks");
         const data = await res.json();
         this.todos = data;
+        console.log("All Data", data);
       } catch (error) {
         console.error("Failed to fetch todos:", error);
       }
@@ -49,25 +51,27 @@ export const useTodoStore = defineStore("todo", {
     async addTodo(name) {
       const newTodo = {
         name,
-        description: "description", // update as needed
-        createdAt: new Date().toISOString(),
-        completedAt: null,
-        user: { id: 1 }, // assuming user ID 1 for now
+        description: "description",
+        userId: 6,
       };
 
       try {
+        console.log("Sending:", newTodo);
         const res = await fetch("http://localhost:3100/tasks/create", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newTodo),
         });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(`API Error: ${errorData.message || res.status}`);
+        }
 
         const createdTodo = await res.json();
         this.todos.push(createdTodo);
       } catch (error) {
-        console.error("Failed to add todo:", error);
+        console.error("Failed to add todo:", error.message);
       }
     },
 
@@ -75,7 +79,7 @@ export const useTodoStore = defineStore("todo", {
       try {
         await Promise.all(
           this.todos.map((todo) =>
-            fetch(`http://localhost:3100/tasks/${todo.id}`, {
+            fetch(`http://localhost:3100/tasks`, {
               method: "DELETE",
             })
           )
